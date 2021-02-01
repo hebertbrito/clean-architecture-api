@@ -1,9 +1,9 @@
 import express from 'express'
+import { adapterRouter } from '../adapters/express'
+import { signUpFactory } from '../factories/signup'
+
 const routerSignUp = express.Router()
 
-routerSignUp.get("/signup", async (req, res)=>{
-    res.json("ok")
-})
-
+routerSignUp.post("/signup", adapterRouter(signUpFactory))
 
 export default routerSignUp

@@ -1,9 +1,9 @@
 import express from 'express'
 import { adapterRouter } from '../adapters/express'
-import { signUpFactory } from '../factories/signup'
+import { signUpController } from '../factories/signup'
 
 const routerSignUp = express.Router()
 
-routerSignUp.post("/signup", adapterRouter(signUpFactory))
+routerSignUp.post("/signup", adapterRouter(signUpController))
 
 export default routerSignUp

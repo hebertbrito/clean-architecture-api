@@ -1,3 +1,7 @@
+import { DbCreateAccount } from '../../../data/usecases/create-account'
+import { BcryptAdapter } from '../../../infra/criptography/bcryptAdapter'
+import { AccountFirebaseRepository } from '../../../infra/database/firebase/accountRepository'
+import { SignUpController } from '../../../presentation/controllers/signup'
 import { Controller, HttpRequest, HttpResponse } from '../../../presentation/protocols'
 
 class SignUpFactory implements Controller {
@@ -12,5 +16,9 @@ class SignUpFactory implements Controller {
         return response
     }
 }
-
-export const signUpFactory = new SignUpFactory()
+const salt = 12
+const bcryptAdapter = new BcryptAdapter(salt)
+const accountFirebaseRepository = new AccountFirebaseRepository()
+const dbCreateAccount = new DbCreateAccount(bcryptAdapter, accountFirebaseRepository)
+export const signUpController = new SignUpController(dbCreateAccount)
+// export const signUpFactory = new SignUpFactory()
